@@ -1,0 +1,148 @@
+======================================================================================
+											|
+		Tema 3 -- Zanficu Madalina && Dinica Mihnnea --			|
+											|
+| rope.c |										|
+											|
+-> "makeRopeNode"									|
+  ^ creating a new dynamically allocated node and initialising its fields		|
+  											|
+  											|
+  											|
+-> "makeRopeTree"									|
+  ^ creating a new dynamically allocated tree and initialising its root		|
+  											|
+  											|
+  											|
+-> "empty_creator"									|
+  ^ allocates the same string ("") but with different memory addresses		|
+  											|
+  											|
+  											|
+-> "string_copy"									|
+  ^ allocates the memory for the copy							|
+  											|
+  ^ copies byte by byte from source to destination					|
+  											|
+  											|
+  											|
+-> "concat"										|
+  ^ creates a new root node where the left and right child are the roots of		|
+  the trees given as paramters							|
+  											|
+  ^ creating a tree from this root node						|
+											|
+											|
+											|
+-> "__indexRope"									|
+  ^ searching recursively for the given index						|
+  											|
+  ^ if the weight of a node is greater than the index => calling the function	|
+  again in the left subtree								|
+  											|
+  ^ if the weight of a node is smaller than the index => calling the function	|
+  again in the right subtree with the new index (idx - weight) because we		|
+  don't have to check the characters from the left side				|
+  											|
+  ^ if the weight is equal to the index => we found it and return the character	|
+  											|
+  											|
+  											|
+-> "indexRope"										|
+  ^ calling the "__indexRope" function starting in the root				|
+  											|
+  											|
+-> "search"										|
+  ^ creating a string that will keep the found characters				|
+  											|
+  ^ calling the 'indexRope' function multiple times in order to find each		|
+  character in the given interval							|
+  											|
+  											|
+  											|
+-> "concat_nodes"									|
+  ^ creating a parent node that will link the 2 nodes given as parameters		|
+											|
+											|
+											|
+-> "NodeCopy"										|
+  ^ function used to copy the data of a node in order to create the left temporary	|
+  tree											|
+  											|
+  											|
+  											|
+-> "str_split"										|
+  ^ function used to split the string at a given index of a leaf-node in order	|
+  to create 2 new child-nodes								|
+											|
+											|
+Improvements: in order to form the temporary tree we do not iterate through		|
+the whole initial tree, but only go on the searched nodes				|
+											|
+-> "__splitRope"									|
+  ^ recursive search for the given index						|
+  											|
+  ^ we have 4 possible cases:								|
+    - if the index is equal to the node's weight, we add it to the temporary		|
+    tree and end the function; if we have a right subtree, we add it to the stack	|
+    											|
+    - if the index is greater than the node's weight, we add it to the temporary	|
+    tree and move in the right subtree						|
+    											|
+    - if the index is smaller than the node's weight, we continue in the		|
+    left subtree; if we have a right subtree, we add it to the stack			|
+    											|
+    - if we reached a leaf, we have to split it in 2 other nodes that will store	|
+    2 different parts of the initial string; the right part will be added to the	|
+    stack and the left part - to the temporary tree, then the function ends		|
+											|
+											|
+											|
+-> "split"										|
+  ^ edge case for index = 0 => the left subtree will be empty and the right		|
+  one will be the initial tree							|
+  											|
+  ^ edge case for index = strlen(string) => the riht subtree will be empty		|
+  and the left one will be the initial tree						|
+  											|
+  ^ we will have to create a temporary tree so as not to damage the initial		|
+  one when splitting the left and right side						|
+  											|
+  ^ creating a stack that will keep the right subtrees during the splitting		|
+  process										|
+  											|
+  ^ after calling the '__splitRope' function, the left subtree is created in		|
+  the temporary tree									|
+  											|
+  ^ the right subtree will be formed by concatenating all the subtrees stored	|
+  in the stack										|
+  											|
+  ^ free the memory used by the stack and return the pair				|
+  											|
+  											|
+  											|
+-> "insert"										|
+  ^ splitting the tree at the given index and creating the node to be added		|
+  											|
+  ^ concatenating the subtrees twice: once the left subtree and the newly		|
+  created node and once again this result with the right subtree			|
+  											|
+  											|
+  											|
+-> "delete"										|
+  ^ splitting the tree 2 times: once at 'start' position in order to get the		|
+  left side and once at 'start + len' index to get the right side			|
+  											|
+  ^ concatenating these 2 subtrees into a tree					|
+  											|
+  											|
+											|
+-> stack and linked list functions							|
+  											|
+  											|
+											|
+|rope.h|										|
+  											|
+-> here are the declarations of the functions and structures used by the program	|
+  											|
+======================================================================================
